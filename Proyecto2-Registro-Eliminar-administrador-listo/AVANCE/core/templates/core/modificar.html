@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <form action="{% url 'modificar_producto' produccion.id %}" method="post">
+        {% csrf_token %}
+        <div class="palabra">EDITAR Registro de Produccion Diaria</div>
+
+        <div class="mb-3">
+            <label for="id_producto" class="form-label">Producto</label>
+            <select id="id_producto" name="producto" class="form-select">
+                <option value="{{ produccion.producto.id }}" selected>{{ produccion.producto.codigo }}</option>
+                {% for producto in productos %}
+                    <option value="{{ producto.id }}">{{ producto.codigo}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="litros_producido" class="form-label">Ingrese Litros Producidos</label>
+            <input type="number" class="form-control" id="litros_producido" name="litros_producido" value="{{ produccion.Litros_producido }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="fecha_produccion" class="form-label">Ingrese fecha de produccion</label>
+            <input type="date" class="form-control" id="fecha_produccion" name="fecha_produccion" value="{{ produccion.fecha_produccion }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="turno" class="form-label">Ingrese el turno</label>
+            <select class="form-select" aria-label="Default select example" id="turno" name="turno" required>
+                <option value="{{ produccion.turno }}" selected>{{ produccion.get_turno_display }}</option>
+                <option value="AM">Mañana</option>
+                <option value="PM">Tarde</option>
+                <option value="MM">Noche</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="hora" class="form-label">Hora</label>
+            <input type="time" class="form-control" id="hora" name="hora" required>
+        </div>
+
+        <button class="btn btn-primary" type="submit">MODIFICAR</button>
+    </form>
+</div>
+{% endblock %}

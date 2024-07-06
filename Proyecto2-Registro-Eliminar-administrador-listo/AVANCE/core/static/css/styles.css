@@ -1,0 +1,130 @@
+.custom-navbar {
+    background-color: #0099f8;
+    display: flex;
+    align-items: center;
+}
+
+.brand{
+    width: 10px;
+    height: 10px;
+    padding-left: 100px;
+    float: left;
+}
+
+.nav-link{
+    color: #fff;
+}
+.brand img{
+    width: 20px;
+    height: auto;
+    margin-right: 100px;
+    float: left;
+}
+
+.navbar-text{
+    color: #fff;
+    padding-left: 25px;
+    padding-top: 30px;
+}
+
+.full-width-image {
+    width: 100%;
+    height: auto;
+}
+
+.palabrauno{
+    position: absolute;
+    top: 350px;
+    left: 15%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 80px;
+    color: #fff;
+    text-align: center;
+}
+.palabrados{
+    position: absolute;
+    top: 450px;
+    left: 25%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    color: #fff;
+}
+
+#btn{
+    display: flex;
+    position: absolute;
+    top: 600px;
+    left: 47%;
+    text-align: center;
+}
+#mostrar-iniciativas-btn{
+    display: flex;
+    position: absolute;
+    top: 600px;
+    left: 47%;
+    text-align: center;
+}
+
+
+.palabratres{
+    position: absolute;
+    top: 200px;
+    left: 43%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    color: black;
+}
+.palabracuatro{
+    position: absolute;
+    top: 300px;
+    left: 38%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: black;
+    text-align: justify;
+}
+
+form{
+    width: 30%;
+    margin-top: 150px;
+    margin-left: 65px;
+    padding-top:150px ;
+   
+}
+
+
+.palabracinco{
+    position: absolute;
+    top: 275px;
+    left: 38%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: black;
+    text-align: justify;
+}
+
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+
+.container button {
+    font-family: 'Arial', sans-serif;
+    font-size: 1em;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+
+

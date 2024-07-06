@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="palabratres">Iniciar Sesión</div>
+<div class="palabracuatro">Lorem ipsum dolor sit ae a culpa minus officia asperiores.</div>
+<div class="palabracinco">Lorem ipsum ndae suscipit sint natus quod mollitia.</div>
+<div class="container">
+    <form data-bitwarden-watching="1" method="post">
+        {% csrf_token %}
+        <div class="mb-4 relative">
+            <input type="text" placeholder="USUARIO" id="username" name="username" class="w-full p-3 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        </div>
+        <div class="mb-6 relative">
+            <input type="password" placeholder="CONTRASEÑA" id="password" name="password" class="w-full p-3 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        </div>
+        <button type="submit">Iniciar sesión</button>
+    </form>
+</div>
+
+<script>
+  const passwordInput = document.getElementById('password');
+</script>
+
+{% endblock %}
+

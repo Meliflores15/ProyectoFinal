@@ -1,0 +1,87 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<style>
+    .form-container {
+        max-width: 1000px;
+        margin: 10px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Centra todo el contenido del formulario */
+    }
+
+    .form-container .form-label {
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+        text-align: left; /* Alinea las etiquetas de los campos a la izquierda */
+    }
+
+    .palabra {
+        font-size: 20px; /* Cambia el tamaño del texto */
+        font-weight: bold; /* Hace el texto en negrita */
+        color: #000000; /* Cambia el color del texto */
+        margin-bottom: 20px; /* Añade un espacio debajo del texto */
+    }
+  
+    /* Estilo para el formulario en general */
+    .form-container form {
+        margin-top: 10px; /* Añade un espacio entre el título y el formulario */
+    }
+</style>
+
+<div class="form-container">
+    <div class="palabra">Registro de Producción Diaria</div>
+
+    <form action="{% url 'agregar_proyecto' %}" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_producto" class="form-label">Producto</label>
+            <select id="id_producto" name="producto" class="form-select" >
+                <option value="">Seleccione un producto</option>
+                {% for producto in productos %}
+                    <option value="{{ producto.id }}">{{ producto.codigo }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="litros_producido" class="form-label">Ingrese Litros Producidos</label>
+            <input type="number" class="form-control" id="litros_producido" name="litros_producido" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="fecha_produccion" class="form-label">Ingrese fecha de producción</label>
+            <input type="date" class="form-control" id="fecha_produccion" name="fecha_produccion" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="turno" class="form-label">Ingrese el turno</label>
+            <select class="form-select" aria-label="Default select example" id="turno" name="turno" required>
+                <option value="" selected>Opciones</option>
+                <option value="AM">Mañana</option>
+                <option value="PM">Tarde</option>
+                <option value="MM">Noche</option> 
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="hora_registro" class="form-label">Hora de Registro</label>
+            <input type="time" class="form-control" id="hora_registro" name="hora_registro" required>
+        </div>
+
+
+
+
+        <div class="mb-3">
+            <label for="id_operador" class="form-label">Operador</label>
+            <input type="text" id="id_operador" name="operador" class="form-control" value="{{ user.get_username }}" readonly>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Enviar</button>
+    </form>
+</div>
+
+{% endblock %}
