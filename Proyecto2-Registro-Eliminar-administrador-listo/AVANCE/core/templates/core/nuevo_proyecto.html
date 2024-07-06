@@ -5,45 +5,42 @@
 <style>
     .form-container {
         max-width: 1000px;
-        margin: 10px auto;
+        margin:  10px auto;
         padding: 20px;
         background-color: #f9f9f9;
         border-radius: 10px;
         box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
-        text-align: center; /* Centra todo el contenido del formulario */
     }
 
     .form-container .form-label {
         font-weight: bold;
         margin-bottom: 10px;
         display: block;
-        text-align: left; /* Alinea las etiquetas de los campos a la izquierda */
     }
 
     .palabra {
-        font-size: 20px; /* Cambia el tamaño del texto */
+        font-size: 25px; /* Cambia el tamaño del texto */
         font-weight: bold; /* Hace el texto en negrita */
         color: #000000; /* Cambia el color del texto */
-        margin-bottom: 20px; /* Añade un espacio debajo del texto */
+        text-align: center; /* Centra el texto */
+        margin-bottom: 0px; /* Añade un espacio debajo del texto */
     }
   
-    /* Estilo para el formulario en general */
-    .form-container form {
-        margin-top: 10px; /* Añade un espacio entre el título y el formulario */
-    }
+  
 </style>
 
 <div class="form-container">
-    <div class="palabra">Registro de Producción Diaria</div>
-
     <form action="{% url 'agregar_proyecto' %}" method="post">
         {% csrf_token %}
+        <div class="palabra">Registro de Produccion Diaria</div>
+
+
         <div class="mb-3">
             <label for="id_producto" class="form-label">Producto</label>
             <select id="id_producto" name="producto" class="form-select" >
                 <option value="">Seleccione un producto</option>
                 {% for producto in productos %}
-                    <option value="{{ producto.id }}">{{ producto.codigo }}</option>
+                    <option value="{{ producto.id }}">{{ producto.nombre }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -54,7 +51,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="fecha_produccion" class="form-label">Ingrese fecha de producción</label>
+            <label for="fecha_produccion" class="form-label">Ingrese fecha de produccion</label>
             <input type="date" class="form-control" id="fecha_produccion" name="fecha_produccion" required>
         </div>
 
@@ -67,19 +64,22 @@
                 <option value="MM">Noche</option> 
             </select>
         </div>
+
+        
         <div class="mb-3">
-            <label for="hora_registro" class="form-label">Hora de Registro</label>
+            <label for="hora_registro" class="form-label">Hora de registro</label>
             <input type="time" class="form-control" id="hora_registro" name="hora_registro" required>
         </div>
 
 
-
-
         <div class="mb-3">
             <label for="id_operador" class="form-label">Operador</label>
-            <input type="text" id="id_operador" name="operador" class="form-control" value="{{ user.get_username }}" readonly>
+            <input type="text" id="id_operador" name="operador" class="form-control" value="{{ user.get_username }}" >
         </div>
 
+      
+    
+        
         <button class="btn btn-primary" type="submit">Enviar</button>
     </form>
 </div>

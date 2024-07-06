@@ -1,23 +1,23 @@
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
 
 from .models import Produccion, Producto
 from django.shortcuts import render
-from .forms import ProduccionForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request,'core/index.html')
 
-@login_required
-def listar_proyectos(request):
-    if 'mis_registros' in request.GET:
-        registros = Produccion.objects.filter(operador=request.user)
-    else:
-        registros = Produccion.objects.all()
-    
-    return render(request, 'core/listarProyectos.html', {'listado': registros})
+
+def listar(request):
+        lista_proyectos= Produccion.objects.all()
+        data={
+             "lista_proyectos": lista_proyectos,
+        } 
+        return render(request,'core/ListarProyectos.html',data)
+
 @login_required
 def home_view(request):
     return render(request, 'core/base.html')
@@ -42,7 +42,12 @@ def logout_view(request):
         logout(request)
         return redirect('/iniciarsesion')
 
+def nuevo_proyecto(request):
+    return render(request, 'core/nuevo_proyecto.html')
 
+from django.shortcuts import render, redirect
+from .models import Produccion, Producto
+from django.contrib.auth.models import User
 
 def agregar_produccion(request):
     if request.method == 'POST':
@@ -50,7 +55,7 @@ def agregar_produccion(request):
         LitrosProducidos = request.POST['litros_producido']
         fecha = request.POST['fecha_produccion']
         turnos = request.POST['turno']  
-        hora=request.POST['hora_registro']
+        hora_registros=request.POST['hora_registro']
         operador = request.user
 
         try:
@@ -61,7 +66,7 @@ def agregar_produccion(request):
             mensaje.Litros_producido = LitrosProducidos
             mensaje.fecha_produccion = fecha
             mensaje.turno = turnos
-            mensaje.hora_registro=hora
+            mensaje.hora_registro=hora_registros
             mensaje.operador = operador
 
             mensaje.save()
@@ -71,26 +76,4 @@ def agregar_produccion(request):
             pass
 
     productos = Producto.objects.all()
- 
     return render(request, 'core/nuevo_proyecto.html', {'productos': productos})
-
-def modificar_producto(request, id):
-    produccion = get_object_or_404(Produccion, id=id)
-
-    if request.method == 'POST':
-        formulario = ProduccionForm(request.POST, instance=produccion)
-        if formulario.is_valid():
-            formulario.save()
-            return redirect('ListarProyectos') 
-    else:
-        formulario = ProduccionForm(instance=produccion)
-
-    return render(request, 'core/modificar.html', {'produccion': produccion, 'form': formulario})
-
-
-
-
-def eliminar_producto(request, id):
-    producto = get_object_or_404(Produccion, id=id)
-    producto.delete()
-    return redirect('ListarProyectos')  

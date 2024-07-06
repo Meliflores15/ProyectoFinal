@@ -1,45 +1,93 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-sm-12 col-md-10 col-lg-8 col-xl-8">
-        
-        <form method="get" action="{% url 'ListarProyectos' %}">
-            <button type="submit" name="mis_registros" value="1" class="btn btn-primary mb-3">Mis Registros</button>
-            <button type="submit" class="btn btn-secondary mb-3">Todos los Registros</button>
-        </form>
+<style>
+    .font-bold {
+        font-weight: bold;
+    }
 
-        <div class="table-responsive">
-            <table class="table table-striped text-center">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Litros</th>
-                        <th>Fecha</th>
-                        <th>Turno</th>
-                        <th>Hora</th>
-                        <th>Operador</th>
-                        <th colspan="2">Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for c in listado %}
-                    <tr>
-                        <td>{{ c.producto.codigo }}</td>
-                        <td>{{ c.Litros_producido }}</td>
-                        <td>{{ c.fecha_produccion }}</td>
-                        <td>{{ c.turno }}</td>
-                        <td>{{ c.hora_registro }}</td>
-                        <td>{{ c.operador.username }}</td>
-                        <td>
-                            <a href="{% url 'modificar_producto' c.id %}" class="btn btn-primary btn-sm">Modificar</a>
-                            <a href="{% url 'eliminar_producto' c.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+    h2.font-bold {
+        position: absolute;
+    top: 80px;
+    left: 15%;
+        color: #b7ff00;
+    }
+    
+</style>
+
+
+<div
+    style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 300px; width: 100%; padding: 20px; box-sizing: border-box;">
+    <div style="width: 100%; max-width: 1600px; text-align: center;">
+        <div class="p-6">
+            <div class="text-center mb-6">
+              
+                <h1 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Proyectos Presentados</h1>
+            </div>
+     <div class="overflow-x-auto">
+    <table class="min-w-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-1000"
+        style="margin: 0 auto; font-size: 18px; min-width: 1500px;">
+        <thead>
+            <tr>
+                <th
+                    class="px-4 py-2 border-b border-zinc-200 dark:border-zinc-700 text-left font-bold text-zinc-700 dark:text-zinc-300">
+                    NOMBRE PROYECTO</th>
+                <th
+                    class="px-4 py-2 border-b border-zinc-200 dark:border-zinc-700 text-left font-bold text-zinc-700 dark:text-zinc-300">
+                    ESTUDIANTE</th>
+                <th
+                    class="px-4 py-2 border-b border-zinc-200 dark:border-zinc-700 text-left font-bold text-zinc-700 dark:text-zinc-300">
+                    TEMA</th>
+                <th
+                    class="px-4 py-2 border-b border-zinc-200 dark:border-zinc-700 text-left font-bold text-zinc-700 dark:text-zinc-300">
+                    PROFESOR</th>
+                <th class="px-4 py-2 border-b border-zinc-200 dark:border-zinc-700 text-left">
+                    <div style="position: relative; display: inline-block;">
+                        <button onclick="toggleDropdown()"
+                            style="background-color: rgb(194, 233, 25); color: rgb(255, 255, 255); padding: 10px; border: none; border-radius: 5px; display: flex; align-items: center;">
+                            Todos los Temas
+                        </button>
+                        <div id="dropdown"
+                            style="display: none; position: absolute; background-color: white; min-width: 120px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1;">
+                            <a href="#"
+                                style="color: black; padding: 12px 16px; text-decoration: none; display: block;">con
+                                patrocinador</a>
+                            <a href="#"
+                                style="color: black; padding: 12px 16px; text-decoration: none; display: block;">sin
+                                patrocinador</a>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in lista_proyectos %}
+            <tr>
+                <td class="px-4 py-2 border-b border-zinc-200 dark:border-zinc-700 text-left font-bold text-zinc-700 dark:text-zinc-300">{{c.Nombree}}</td>
+                <td class="px-4 py-2 border-b border-zinc-200 dark:border-zinc-700 text-left font-bold text-zinc-700 dark:text-zinc-300">{{c.alumno}}</td>
+                <td class="px-4 py-2 border-b border-zinc-200 dark:border-zinc-700 text-left font-bold text-zinc-700 dark:text-zinc-300">{{c.tipo}}</td>
+                <td class="px-4 py-2 border-b border-zinc-200 dark:border-zinc-700 text-left font-bold text-zinc-700 dark:text-zinc-300">{{c.profesor}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
+
+
+<script>
+    function toggleDropdown() {
+        document.getElementById("dropdown").style.display = document.getElementById("dropdown").style.display === 'none' ? 'block' : 'none';
+    }
+    window.onclick = function (event) {
+        if (!event.target.matches('button')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.style.display === 'block') {
+                    openDropdown.style.display = 'none';
+                }
+            }
+        }
+    }
+</script>
 {% endblock %}

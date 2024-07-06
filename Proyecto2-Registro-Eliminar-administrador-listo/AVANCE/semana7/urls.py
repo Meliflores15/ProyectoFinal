@@ -20,13 +20,10 @@ from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name="Home"),
-    path('ListarProyectos/', views.listar_proyectos, name="ListarProyectos"),
+    path('', views.index, name="home"),
+    path('ListarProyectos/', views.listar, name="ListarProyectos"),
     path('iniciarsesion/', views.iniciarsesion, name="iniciarsesion"),
     path('logout/', views.logout_view, name='logout'),
- 
+    path('nuevo_proyecto/', views.nuevo_proyecto, name="nuevo_proyecto"),
     path('agregar_proyecto/', views.agregar_produccion, name="agregar_proyecto"),
-    path('modificar-producto/<id>/', views.modificar_producto, name="modificar_producto"),
-    path('eliminar-producto/<id>', views.eliminar_producto, name="eliminar_producto"),
-  
 ]
