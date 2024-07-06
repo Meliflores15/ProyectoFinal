@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #mis apps
     "core",
     "rest_framework",
+    "django_filters",
 ]
 
 STATICFILES_DIRS = [
@@ -135,4 +136,4 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #aca agregue link de slack
-SLACK_WEBHOOK_URL ='https://hooks.slack.com/services/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'
+SLACK_WEBHOOK_URL ='https://hooks.slack.com/services/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'
