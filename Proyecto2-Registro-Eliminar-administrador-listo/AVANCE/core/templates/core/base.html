@@ -16,25 +16,24 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav mr-auto">
-                    <label for="" class="brand">
-                        <a href="" ><img  src="{% static 'imagenes/Barra Colores.png' %}" alt="" ></a>
-                    </label>
+                   
                     <span class="navbar-text">PIE DE USM...</span>
                 </div>
                 <div class="navbar-nav ms-auto">
                     
                     
                     {% if user.is_authenticated %}
-                        <a class="nav-link " aria-current="page" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link " aria-current="page" href="{% url 'Home' %}">Home</a>
                         {% if user.is_staff %}
                             <a class="nav-link" href="{% url 'ListarProyectos' %}">Proyectos</a>
                         {% else %}
                             <a class="nav-link" href="{% url 'agregar_proyecto' %}">Nuevo Proyecto</a>
+                            <a class="nav-link" href="{% url 'ListarProyectos' %}">Proyectos</a>
                         {% endif %}
                             <a class="nav-link" href="{% url 'logout' %}">Salir</a>        
                     {% else %}
-                    <a class="nav-link" href="{% url 'home' %}">home</a>
-                    <a class="nav-link" href="{% url 'ListarProyectos' %}">Proyectos</a>
+                    <a class="nav-link" href="{% url 'Home' %}">Home</a>
+               
                     <a class="nav-link" href="{% url 'iniciarsesion' %}">Iniciar Sesion</a>
                     {% endif %}
                 
