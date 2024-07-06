@@ -28,7 +28,6 @@ turnos = [
     ("MM", "Noche"),
 ]
 
-
 class Produccion(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     Litros_producido = models.IntegerField()
@@ -61,11 +60,14 @@ class Produccion(models.Model):
     def actualizar_litros_totales(self, producto=None):
         if producto is None:
             producto = self.producto
-        total_litros = Produccion.objects.filter(producto=producto).aggregate(total=models.Sum('Litros_producido'))['total']
+        total_litros = Produccion.objects.filter(producto=producto, anulado=False).aggregate(total=models.Sum('Litros_producido'))['total']
         producto.litros_totales = total_litros if total_litros is not None else 0
         producto.save()
         print(f"Producto {producto.codigo} actualizado: {producto.litros_totales} litros")
 
+    def enviar_notificacion_slack(self):
+        # Tu lógica para enviar notificación a Slack
+        pass
 
     #esto envia a la aplicacion cuando hace un registro
     def enviar_notificacion_slack(self):

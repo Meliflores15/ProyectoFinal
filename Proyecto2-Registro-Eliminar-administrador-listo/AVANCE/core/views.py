@@ -99,7 +99,7 @@ def modificar_producto(request, id):
     
     return render(request, 'core/modificar.html', {'form': form, 'produccion': produccion})
 
-
+@login_required
 def eliminar_producto(request, id):
     producto = get_object_or_404(Produccion, id=id)
     producto.delete()
