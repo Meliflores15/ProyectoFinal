@@ -29,4 +29,6 @@ urlpatterns = [
     path('agregar_proyecto/', views.agregar_produccion, name="agregar_proyecto"),
     path('modificar-producto/<id>/', views.modificar_producto, name="modificar_producto"),
     path('eliminar-producto/<id>', views.eliminar_producto, name="eliminar_producto"),
+    path('fiscalizador/', views.fiscalizadora, name="informacion"),
+    
 ]

@@ -1,22 +1,13 @@
-from django.urls import path,include
-from rest_framework import serializers,routers
-from .import views
-from .views import ProduccionesViewSet, ProductoViewSet,PlantaViewSet
+from django.urls import path, include
+from rest_framework import routers
+from .views import ProduccionesViewSet, ProductoViewSet, PlantaViewSet, lista_productos
 
+router = routers.DefaultRouter()
+router.register('TotalDeProducciones', ProduccionesViewSet)
+router.register('TipoDeCombustible', ProductoViewSet)
+router.register('planta', PlantaViewSet)
 
-
-router= routers.DefaultRouter()
-router.register('producciones',views.ProduccionesViewSet)
-urlpatterns=[
-    path('',include(router.urls))
-]
-
-router.register('producto',views.ProductoViewSet)
-urlpatterns=[
-    path('',include(router.urls))
-]
-
-router.register('planta',views.PlantaViewSet)
-urlpatterns=[
-    path('',include(router.urls))
+urlpatterns = [
+    path('', include(router.urls)),
+    path('api/productos/', lista_productos, name='lista_productos'),
 ]

@@ -12,6 +12,8 @@ class PlantaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductoSerializer(serializers.ModelSerializer):
+    planta = serializers.CharField(source='planta.nombre', read_only=True)
+
     class Meta:
         model = Producto
-        fields = '__all__'
+        fields = ['codigo', 'nombre', 'litros_totales', 'planta']

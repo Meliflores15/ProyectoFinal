@@ -12,6 +12,8 @@ from django.utils import timezone
 def index(request):
     return render(request,'core/index.html')
 
+
+
 @login_required
 def listar_proyectos(request):
     if 'mis_registros' in request.GET:
@@ -35,7 +37,7 @@ def iniciarsesion(request):
             login(request, user)
             return redirect('/ListarProyectos')
         else:
-            return render(request, 'core/Listarproyectos.html')
+            return render(request, 'core/index.html')
     else:
         return render(request, 'core/iniciarsesion.html')
     
@@ -102,3 +104,10 @@ def eliminar_producto(request, id):
     producto = get_object_or_404(Produccion, id=id)
     producto.delete()
     return redirect('ListarProyectos')  
+
+@login_required
+def fiscalizadora(request):
+    if request.user.groups.filter(name='autoridad').exists():
+        return render(request, 'core/autoridad.html')
+    else:
+        return HttpResponseForbidden("No tienes permiso para acceder a esta página.")
