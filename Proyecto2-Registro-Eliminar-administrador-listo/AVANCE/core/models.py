@@ -34,7 +34,8 @@ class Produccion(models.Model):
     anulado = models.BooleanField(default=False)
     usuario_anulacion = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='producciones_anuladas')
     fecha_anulacion = models.DateTimeField(null=True, blank=True)
-
+    modificado_por = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='modificaciones')
+    fecha_modificacion = models.DateTimeField(null=True, blank=True)
     def __str__(self):
         return f"{self.producto.codigo} - {self.fecha_produccion} - {self.turno} "
     

@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-
-
+from .models import Produccion
+from .forms import ProduccionForm
+from django.http import HttpResponseForbidden
 from .models import Produccion, Producto
 from django.shortcuts import render
 from .forms import ProduccionForm
+from django.utils import timezone
 
 def index(request):
     return render(request,'core/index.html')
@@ -74,20 +76,26 @@ def agregar_produccion(request):
  
     return render(request, 'core/nuevo_proyecto.html', {'productos': productos})
 
+@login_required
 def modificar_producto(request, id):
     produccion = get_object_or_404(Produccion, id=id)
 
+    # Verificar que el usuario logueado sea el operador que registró la producción
+    if produccion.operador != request.user:
+        return HttpResponseForbidden("No tienes permiso para modificar este registro.")
+
     if request.method == 'POST':
-        formulario = ProduccionForm(request.POST, instance=produccion)
-        if formulario.is_valid():
-            formulario.save()
-            return redirect('ListarProyectos') 
+        form = ProduccionForm(request.POST, instance=produccion)
+        if form.is_valid():
+            produccion = form.save(commit=False)
+            produccion.modificado_por = request.user
+            produccion.fecha_modificacion = timezone.now()
+            produccion.save()
+            return redirect('ListarProyectos')
     else:
-        formulario = ProduccionForm(instance=produccion)
-
-    return render(request, 'core/modificar.html', {'produccion': produccion, 'form': formulario})
-
-
+        form = ProduccionForm(instance=produccion)
+    
+    return render(request, 'core/modificar.html', {'form': form, 'produccion': produccion})
 
 
 def eliminar_producto(request, id):

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #mis apps
     "core",
+    "rest_framework",
 ]
 
 STATICFILES_DIRS = [

@@ -1,8 +1,8 @@
 {% extends 'core/base.html' %}
-{% load static %}
+
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-sm-12 col-md-10 col-lg-8 col-xl-8">
+    <div class="col-11">
         
         <form method="get" action="{% url 'ListarProyectos' %}">
             <button type="submit" name="mis_registros" value="1" class="btn btn-primary mb-3">Mis Registros</button>
@@ -20,6 +20,7 @@
                         <th>Hora</th>
                         <th>Operador</th>
                         <th>Estado</th>
+                        <th>Última Modificación</th>
                         <th colspan="2">Opciones</th>
                     </tr>
                 </thead>
@@ -41,9 +42,19 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{% url 'modificar_producto' c.id %}" class="btn btn-primary btn-sm">Modificar</a>
-                            {% if not c.anulado %}
-                                <a href="{% url 'eliminar_producto' c.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                            {% if c.modificado_por %}
+                                Modificado por: {{ c.modificado_por.username }} <br>
+                                Fecha y hora: {{ c.fecha_modificacion }}
+                            {% else %}
+                                Nunca modificado
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if c.operador == request.user %}
+                                <a href="{% url 'modificar_producto' c.id %}" class="btn btn-primary btn-sm">Modificar</a>
+                                {% if not c.anulado %}
+                                    <a href="{% url 'eliminar_producto' c.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                {% endif %}
                             {% endif %}
                         </td>
                     </tr>
