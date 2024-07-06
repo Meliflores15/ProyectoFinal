@@ -107,7 +107,8 @@ def eliminar_producto(request, id):
 
 @login_required
 def fiscalizadora(request):
-    if request.user.groups.filter(name='autoridad').exists():
-        return render(request, 'core/autoridad.html')
+    is_autoridad = request.user.groups.filter(name='autoridad').exists()
+    if is_autoridad:
+        return render(request, 'core/autoridad.html', {'is_autoridad': is_autoridad})
     else:
         return HttpResponseForbidden("No tienes permiso para acceder a esta página.")
