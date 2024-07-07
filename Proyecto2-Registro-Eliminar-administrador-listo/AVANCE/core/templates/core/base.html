@@ -22,10 +22,10 @@
                         <span class="navbar-text">¡Bienvenido, {{ user.username }}!</span>
                         <a class="nav-link" aria-current="page" href="{% url 'Home' %}">Home</a>
                         {% if user.is_staff %}
-                            <a class="nav-link" href="{% url 'ListarProyectos' %}">Proyectos</a>
+                            <a class="nav-link" href="{% url 'ListarProyectos' %}">Registros</a>
                         {% else %}
-                            <a class="nav-link" href="{% url 'agregar_proyecto' %}">Nuevo Proyecto</a>
-                            <a class="nav-link" href="{% url 'ListarProyectos' %}">Proyectos</a>
+                            <a class="nav-link" href="{% url 'agregar_proyecto' %}">Nuevo Registro</a>
+                            <a class="nav-link" href="{% url 'ListarProyectos' %}">Registros</a>
                         {% endif %}
                         {% if is_autoridad %}
                             <a class="nav-link" href="{% url 'informacion' %}">API</a>
