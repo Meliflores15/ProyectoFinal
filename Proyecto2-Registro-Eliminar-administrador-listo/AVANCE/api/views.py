@@ -6,9 +6,9 @@ from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 import django_filters
-from .permissions import IsSpecificUser  # Importa tu permiso personalizado
+from .permissions import IsSpecificUser  
 
-# Custom filter for Produccion
+
 class ProduccionFilter(django_filters.FilterSet):
     ano = django_filters.NumberFilter(field_name='fecha_produccion', lookup_expr='year')
     mes = django_filters.NumberFilter(field_name='fecha_produccion', lookup_expr='month')
@@ -22,21 +22,21 @@ class ProduccionesViewSet(viewsets.ModelViewSet):
     serializer_class = ProduccionSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = ProduccionFilter
-    permission_classes = [IsSpecificUser]  # Aplica el permiso personalizado
+    permission_classes = [IsSpecificUser] 
 
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
-    permission_classes = [IsSpecificUser]  # Aplica el permiso personalizado
+    permission_classes = [IsSpecificUser]
 
 class PlantaViewSet(viewsets.ModelViewSet):
     queryset = Planta.objects.all()
     serializer_class = PlantaSerializer
-    permission_classes = [IsSpecificUser]  # Aplica el permiso personalizado
+    permission_classes = [IsSpecificUser]  
 
-# Vista personalizada
+# Vista personalizada para que nos aparezca de manera diferente 
 @api_view(['GET'])
-@permission_classes([IsSpecificUser])  # Aplica el permiso personalizado
+@permission_classes([IsSpecificUser])
 def lista_productos(request):
     productos = Producto.objects.all()
     data = []

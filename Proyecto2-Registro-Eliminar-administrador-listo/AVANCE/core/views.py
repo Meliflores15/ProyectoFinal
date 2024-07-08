@@ -1,17 +1,13 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import Produccion
-from .forms import ProduccionForm
 from django.http import HttpResponseForbidden
 from .models import Produccion, Producto
-from django.shortcuts import render
 from .forms import ProduccionForm
 from django.utils import timezone
 
 def index(request):
     return render(request,'core/index.html')
-
 
 
 @login_required
@@ -22,6 +18,8 @@ def listar_proyectos(request):
         registros = Produccion.objects.all()
     
     return render(request, 'core/listarProyectos.html', {'listado': registros})
+
+
 @login_required
 def home_view(request):
     return render(request, 'core/base.html')
@@ -69,9 +67,8 @@ def agregar_produccion(request):
             mensaje.operador = operador
 
             mensaje.save()
-           # Redirigir a alguna vista después de guardar, ajustar según tu proyecto
+        
         except Producto.DoesNotExist:
-            # Manejar el error si no se encuentra el producto
             pass
 
     productos = Producto.objects.all()
@@ -82,7 +79,7 @@ def agregar_produccion(request):
 def modificar_producto(request, id):
     produccion = get_object_or_404(Produccion, id=id)
 
-    # Verificar que el usuario logueado sea el operador que registró la producción
+    # Aca verificamos el usuario logueado
     if produccion.operador != request.user:
         return HttpResponseForbidden("No tienes permiso para modificar este registro.")
 

@@ -65,17 +65,17 @@ class Produccion(models.Model):
         producto.save()
         print(f"Producto {producto.codigo} actualizado: {producto.litros_totales} litros")
 
+
+ #esto envia a la aplicacion cuando hace un registro
     def enviar_notificacion_slack(self):
-        # Tu lógica para enviar notificación a Slack
         pass
 
-    #esto envia a la aplicacion cuando hace un registro
     def enviar_notificacion_slack(self):
         webhook_url = settings.SLACK_WEBHOOK_URL
         if not webhook_url:
             return
 
-        # Asegúrate de que self.fecha_produccion y self.hora_registro son objetos de fecha y hora
+        # Me aseguro que la fecha y la hora sea la que ingreso desde el html
         if isinstance(self.fecha_produccion, str):
             self.fecha_produccion = parser.parse(self.fecha_produccion).date()
         if isinstance(self.hora_registro, str):

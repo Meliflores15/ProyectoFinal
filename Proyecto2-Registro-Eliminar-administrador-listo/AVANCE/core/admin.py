@@ -16,7 +16,8 @@ class ProduccionAdminForm(forms.ModelForm):
         # Filtrar usuarios para mostrar solo los supervisores
         supervisores = Group.objects.get(name="Supervisores").user_set.all()
         self.fields['usuario_anulacion'].queryset = supervisores
-
+        
+#supervisor
 @admin.register(Produccion)
 class ProduccionAdmin(admin.ModelAdmin):
     form = ProduccionAdminForm
